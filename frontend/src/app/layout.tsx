@@ -3,6 +3,7 @@
 import { ApolloProvider } from '@apollo/client';
 import client from '@/lib/apollo-client';
 import './globals.css';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 
 export default function RootLayout({
   children,
@@ -13,7 +14,9 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <ApolloProvider client={client}>
-          {children}
+          <ErrorBoundary>
+            {children}
+          </ErrorBoundary>
         </ApolloProvider>
       </body>
     </html>

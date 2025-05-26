@@ -10,7 +10,7 @@ const typeDefs = gql`
   }
 
   type Query {
-    posts: [BlogPost!]!
+    posts(page: Int, limit: Int): [BlogPost!]!
     post(id: ID!): BlogPost
   }
 

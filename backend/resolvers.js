@@ -3,9 +3,15 @@ const { ObjectId } = require('mongodb');
 const resolvers = {
   Query: {
     // Resolver to fetch all blog posts
-    posts: async (_, __, { db }) => {
+    posts: async (_, { page = 1, limit = 10 }, { db }) => {
       try {
-        const posts = await db.collection('posts').find().toArray();
+        const skip = (page - 1) * limit;
+        const posts = await db.collection('posts')
+          .find()
+          .sort({ createdAt: -1 })
+          .skip(skip)
+          .limit(limit)
+          .toArray();
         // Map MongoDB's _id to GraphQL's id and convert ObjectId to string
         return posts.map(post => ({
           id: post._id.toString(),
@@ -42,6 +48,19 @@ const resolvers = {
     // Resolver to create a new blog post
     createPost: async (_, { title, content, author }, { db }) => {
       try {
+        // Input validation
+        if (!title || !content || !author) {
+          throw new Error('All fields (title, content, author) are required.');
+        }
+        if (title.length < 3) {
+          throw new Error('Title must be at least 3 characters long.');
+        }
+        if (content.length < 10) {
+          throw new Error('Content must be at least 10 characters long.');
+        }
+        if (author.length < 2) {
+          throw new Error('Author name must be at least 2 characters long.');
+        }
         const post = {
           title,
           content,
@@ -58,7 +77,7 @@ const resolvers = {
         };
       } catch (error) {
         console.error('Error creating post:', error);
-        throw new Error('Failed to create blog post.');
+        throw new Error(error.message || 'Failed to create blog post.');
       }
     }
   }

@@ -26,19 +26,21 @@ export default function Home() {
   if (!posts.length) return <div className="min-h-screen p-8">No blog posts found.</div>;
 
   return (
-    <main className="min-h-screen p-6 max-w-2xl mx-auto">
-      <h1 className="text-3xl font-semibold mb-6 text-gray-800">Blog Posts</h1>
-      <div className="grid gap-5">
-        {posts.map((post) => (
-          <Link
-            key={post.id}
-            href={`/post/${post.id}`}
-            className="block p-5 bg-gray-50 rounded-lg border border-gray-200 hover:border-blue-500 transition-colors"
-          >
-            <h2 className="text-xl font-medium mb-1 text-gray-900">{post.title}</h2>
-            <p className="text-sm text-gray-600">By {post.author}</p>
-          </Link>
-        ))}
+    <main className="min-h-screen py-12 bg-gradient-to-br from-gray-100 to-white">
+      <div className="max-w-2xl mx-auto px-4">
+        <h1 className="text-4xl font-extrabold mb-10 text-gray-800 border-b-2 border-blue-600 pb-4 inline-block tracking-tight">Recent Blog Posts</h1>
+        <div className="grid gap-7">
+          {posts.map((post) => (
+            <Link
+              key={post.id}
+              href={`/post/${post.id}`}
+              className="block p-6 bg-white rounded-xl shadow-md hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 ease-in-out border border-gray-200 hover:border-blue-500"
+            >
+              <h2 className="text-2xl font-bold mb-2 text-gray-800 tracking-tight">{post.title}</h2>
+              <p className="text-gray-600 text-sm font-medium">By {post.author}</p>
+            </Link>
+          ))}
+        </div>
       </div>
     </main>
   );

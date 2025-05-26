@@ -24,17 +24,17 @@ export default function PostPage({ params }: { params: { id: string } }) {
   const post: BlogPost = data.post;
 
   return (
-    <main className="min-h-screen py-10 bg-gradient-to-br from-gray-50 to-white">
+    <main className="min-h-screen py-12 bg-gradient-to-br from-gray-100 to-white">
       <div className="max-w-2xl mx-auto px-4">
         <Link
           href="/"
-          className="inline-block mb-8 text-blue-600 hover:text-blue-800 text-base font-medium transition-colors duration-200"
+          className="inline-block mb-8 text-blue-600 hover:text-teal-600 text-base font-medium transition-colors duration-200"
         >
           ← Back to Posts
         </Link>
         <article className="bg-white p-8 rounded-lg shadow-lg">
           <h1 className="text-3xl font-bold mb-4 text-gray-900">{post.title}</h1>
-          <div className="text-gray-700 mb-6 text-sm border-b pb-4">
+          <div className="text-gray-700 mb-6 text-sm border-b border-gray-300 pb-4">
             <p className="mb-1">By {post.author}</p>
             <p className="text-gray-500">
               {new Date(post.createdAt).toLocaleDateString()}
